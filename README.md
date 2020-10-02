@@ -5,8 +5,7 @@ Google like a power user and navigate results with just your keyboard.
 1. Install Chrome extension ShortKeys.
 1. Click on the ShortKeys menu and select "Options" enter image description here
 1. Click on "Add" and fill in the following fields:
-
-Keyboard Shortcut: tab
+1.1Keyboard Shortcut: tab
 
 Behavior: Run JavaScript
 
