@@ -15,8 +15,7 @@ Google like a power user and navigate results with just your keyboard.
             1. URLS (one per line): *www.google.*
 
 This is what the Options page should look like
-
-[[ShortKeys Options Page screenshot]]
+![Screenshot of the ShortKeys Options Page](screenshot.png?raw=true "ShortKeys Options Page")
 
 Click Save and then close your browser.
 Instructions:
