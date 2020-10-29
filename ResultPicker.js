@@ -1,36 +1,49 @@
-document.selectedResultId=0
+// modified version of https://superuser.com/a/1235058/69589
 
-function selectResult(newId){
-    els = document.querySelectorAll("div.r h3")
-    if(newId < 0 || newId >= els.length)
-        return  //Could modify for page nav...?
-    rp = document.getElementById("result-pointer")
-    if(rp != null){
-        rp.remove()
-    }
-    document.selectedResultId=newId
-    el = els[newId]
-    lnk = el.parentElement
-    el.innerHTML = "<div id=\"result-pointer\" style=\"position:absolute;left:-15px;\">&gt;</div>" + el.innerHTML
-    lnk.focus()
+// find all the search results
+const querySelector = '.rc > div.yuRUbf';
+
+document.selectedResultId = 0;
+function selectResult(newId) {
+    els = document.querySelectorAll(querySelector)
+    if (newId < 0 || newId >= els.length) {
+        return  //Could modify for page nav...?
+    }
+    rp = document.getElementById("result-pointer");
+    if (rp != null) {
+        rp.remove();
+    }
+    document.selectedResultId = newId;
+    el = els[newId];
+    lnk = el.firstElementChild;
+    el.innerHTML = "<div id=\"result-pointer\" style=\"position:absolute;left:-15px;\">&gt;</div>" + el.innerHTML;
+    lnk.focus();
 }
-document.onkeyup=function(event){
-    if(event.keyCode==38)
-        selectResult(document.selectedResultId-1)
-    if(event.keyCode==40)
-        selectResult(document.selectedResultId+1)
-    if(event.keyCode==13){
-      var el = document.querySelectorAll("div.r h3")[document.selectedResultId]
-      var lnk = el.parentElement
-      var url = lnk.href
-      if(event.ctrlKey){
-        var win = window.open(url,"_blank")
-        win.blur()
-        window.open().close()
-      }
-      else{
-        document.location = url
-      }
-    }
+document.onkeydown = function(event) {
+    // the '/' key
+    if (event.keyCode == 191) {
+        document.getElementsByName("q")[0].focus();
+    }
+
+    // the up arrow key
+    if (event.keyCode == 38) {
+        selectResult(document.selectedResultId-1);
+    }
+
+    // the down arrrow key
+    if (event.keyCode == 40) {
+        selectResult(document.selectedResultId+1);
+    }
+    // the enter key
+    if (event.keyCode == 13) {
+      var el = document.querySelectorAll(querySelector)[document.selectedResultId];
+      var lnk = el.querySelector("a");
+      var url = lnk.href;
+      if (event.metaKey) {
+        var win = window.open(url,"_blank");
+      } else {
+        document.location = url;
+      }
+    }
 }
-selectResult(0)
+selectResult(0);
