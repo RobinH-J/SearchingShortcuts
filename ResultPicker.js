@@ -12,10 +12,7 @@ const querySelector = 'div.yuRUbf h3';
 document.selectedResultId = 0;
 
 function selectResult(newId) {
-    let linkTextArray = Array.from(document.querySelectorAll(querySelector)).filter(node =>
-        // filter out the "People also ask" section of results (which don't initially display)
-        !node.closest('.ULSxyf')
-    );
+    let linkTextArray = getSearchResultsAsArray();
     if (newId < 0 || newId >= linkTextArray.length) {
         return  // future idea: modify for next/prev page
     }
@@ -24,6 +21,13 @@ function selectResult(newId) {
     let linkText = linkTextArray[newId];
     let link = linkText.parentElement;
     link.focus();
+}
+
+function getSearchResultsAsArray() {
+  return Array.from(document.querySelectorAll(querySelector)).filter(node =>
+    // filter out the "People also ask" section of results (which don't initially display)
+    !node.closest('.ULSxyf')
+  );
 }
 
 document.onkeydown = function(event) {
@@ -38,7 +42,7 @@ document.onkeydown = function(event) {
     }
     // the enter key
     if (event.key === 'Enter') {
-      let linkText = document.querySelectorAll(querySelector)[document.selectedResultId];
+      let linkText = getSearchResultsAsArray()[document.selectedResultId];
       let link = linkText.parentElement;
       let url = link.href;
       if (event.metaKey) {
