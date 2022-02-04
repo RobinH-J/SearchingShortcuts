@@ -24,38 +24,51 @@ function selectResult(newId) {
 }
 
 function getSearchResultsAsArray() {
-  return Array.from(document.querySelectorAll(querySelector)).filter(node =>
-    // Filter out "People also ask" section.
-    // Links in that section aren't initially shown, so skip them
-    // Queries to test with:
-    //   "who is the president" displays the 'People also ask' section
-    //   "npm create package" displays a 'featured snippet' + link above the main results (we want that link to get selected)
-    //   "what is an apple" displays a link, then the 'People also ask' section
-    !node.closest('.Wt5Tfe')
-  );
+    return Array.from(document.querySelectorAll(querySelector)).filter(node =>
+      // Filter out "People also ask" section.
+      // Links in that section aren't initially shown, so skip them
+      // Queries to test with:
+      //   "who is the president" displays the 'People also ask' section
+      //   "npm create package" displays a 'featured snippet' + link above the main results (we want that link to get selected)
+      //   "what is an apple" displays a link, then the 'People also ask' section
+      !node.closest('.Wt5Tfe')
+    );
 }
 
 document.onkeydown = function(event) {
-    // the up arrow key
-    if (event.key === 'ArrowUp') {
+    if (event.key === 'ArrowUp' || isVimUpKey(event.key)) {
         selectResult(document.selectedResultId - 1);
     }
 
-    // the down arrow key
-    if (event.key === 'ArrowDown') {
+    if (event.key === 'ArrowDown' || isVimDownKey(event.key)) {
         selectResult(document.selectedResultId + 1);
     }
-    // the enter key
+
     if (event.key === 'Enter') {
       let linkText = getSearchResultsAsArray()[document.selectedResultId];
       let link = linkText.parentElement;
       let url = link.href;
       if (event.metaKey) {
-        window.open(url, '_blank');
+          window.open(url, '_blank');
       } else {
-        document.location = url;
+          document.location = url;
       }
     }
+}
+
+function isVimDownKey(key) {
+    let isDown = key === 'j' || key === 'J';
+    return isDown && !inputTextBoxHasFocus();
+}
+
+function isVimUpKey(key) {
+    let isUp = key === 'k' || key === 'K';
+    return isUp && !inputTextBoxHasFocus();
+}
+
+// j and k should work normally if the user's typing in an input box
+function inputTextBoxHasFocus() {
+    return document.activeElement.type === 'text';
 }
 
 // when the plugin activates, select the first result
