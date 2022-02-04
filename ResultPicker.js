@@ -25,8 +25,13 @@ function selectResult(newId) {
 
 function getSearchResultsAsArray() {
   return Array.from(document.querySelectorAll(querySelector)).filter(node =>
-    // filter out the "People also ask" section of results (which don't initially display)
-    !node.closest('.ULSxyf')
+    // Filter out "People also ask" section.
+    // Links in that section aren't initially shown, so skip them
+    // Queries to test with:
+    //   "who is the president" displays the 'People also ask' section
+    //   "npm create package" displays a 'featured snippet' + link above the main results (we want that link to get selected)
+    //   "what is an apple" displays a link, then the 'People also ask' section
+    !node.closest('.Wt5Tfe')
   );
 }
 
@@ -36,7 +41,7 @@ document.onkeydown = function(event) {
         selectResult(document.selectedResultId - 1);
     }
 
-    // the down arrrow key
+    // the down arrow key
     if (event.key === 'ArrowDown') {
         selectResult(document.selectedResultId + 1);
     }
