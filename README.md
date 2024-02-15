@@ -6,13 +6,13 @@ Google like a power user and navigate results with just your keyboard.
 1. Click on the ShortKeys menu and select "Options" enter image description here
 1. Click on "Add" and fill in the following fields:
     1. Keyboard Shortcut: tab
-    1. Behavior: Run JavaScript
     1. Label: Result Picker
+    1. Behavior: Run JavaScript
 1. Paste the JavaScript code from ResultPicker.js (in this repo) into "Javascript[sic] code to run"
     1. Configure the `Settings`:
-        1. Active while in form fields (Checked)
-        1. Websites (Only specific sites)
-            1. URLS (one per line): *www.google.*
+        1. Active while in inputs (Checked)
+        1. select: Only on specific sites
+            1. URLS (one per line): `*.google.*`
 
 This is what the Options page should look like
 ![Screenshot of the ShortKeys Options Page](screenshot.png?raw=true "ShortKeys Options Page")
@@ -26,4 +26,3 @@ Instructions:
 - Hitting "Ctrl+Enter" to open the result in a new tab.
 
 Happy Searching!
-
